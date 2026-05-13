@@ -22,6 +22,9 @@ public class UserService {
     @Autowired
     private UserRepository repository;
     
+    @Autowired
+    private TokenService tokenService;
+    
     public void register(UserDTO user) {
         String mensagem = "";
         if (user.getNome(). equals("")) {
@@ -43,7 +46,7 @@ public class UserService {
         
         repository.register(user);
     }
-    public UserDTO login(UserRequestDTO user) {
+    public String login(UserRequestDTO user) {
         String mensagem = "";
         if (user.getEmail().equals("")) {
             mensagem = "Email não preenchido";
@@ -56,6 +59,7 @@ public class UserService {
             throw new ResponseStatusException(HttpStatusCode.valueOf(400), mensagem);
         }
         
-        return repository.login(user.getEmail(), user.getSenha());
+        UserDTO dadosLogados = repository.login(user.getEmail(), user.getSenha());
+        return tokenService.gerarToken(dadosLogados);
     }
 }

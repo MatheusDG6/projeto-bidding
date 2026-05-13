@@ -48,7 +48,7 @@ public class TokenService {
                 .signWith(this.getKeySign())
                 .compact();
     }
-    public Claims extrairClaims(String token) {
+    public UserDTO extrairClaims(String token) {
         Claims claims = Jwts.parser()
                 .verifyWith(this.getKeySign())
                 .build()
