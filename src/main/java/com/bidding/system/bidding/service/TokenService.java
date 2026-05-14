@@ -42,7 +42,9 @@ public class TokenService {
         }
         return Jwts.builder()
                 .subject(user.getNome())
-                .claim("usuario", user)
+                .claim("id", user.getId())
+                .claim("nome", user.getNome())
+                .claim("role", user.getRole())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis()+ 3000000))
                 .signWith(this.getKeySign())
@@ -55,7 +57,10 @@ public class TokenService {
                 .parseSignedClaims(token)
                 .getPayload();
         
-        UserDTO user = claims.get("usuarios", UserDTO.class);
+        UserDTO user = new UserDTO();
+        user.setId(claims.get("id", Long.class));
+        user.setNome(claims.get("nome", String.class));
+        user.setRole(claims.get("role", String.class));
         
         return user;
     }
