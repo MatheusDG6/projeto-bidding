@@ -58,7 +58,13 @@ public class EditalService {
                 }
             }
         }
-        public List<EditalDTO> listar(){
-        return repository.listar();
+    
+        public List<EditalDTO> listar(String token){
+            if (tokenService.validarToken(token)) {
+                return repository.listar();
+            }
+            else {
+                throw new ResponseStatusException(HttpStatusCode.valueOf(401), "Autenticação necessária");
+            }
     }
 }

@@ -62,4 +62,28 @@ public class EditalRepository {
         }
         return editais;
     }
+    
+    public EditalDTO getById(Long id) {
+        EditalDTO edital = new EditalDTO();
+        try{
+            Connection conn = Conexao.conectar();
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            
+            stmt = conn.prepareStatement("SELECT * FROM editais WHERE id = ?");
+            stmt.setLong(1, id);
+            
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                edital.setId(rs.getLong("id"));
+                edital.setTitulo(rs.getString("titulo"));
+                edital.setDescricao(rs.getString("descricao"));
+                edital.setData_fechamento(rs.getDate("data_fechamento"));
+                edital.setStatus(rs.getString("status"));
+            }
+            
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

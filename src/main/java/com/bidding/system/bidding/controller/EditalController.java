@@ -5,7 +5,9 @@
 package com.bidding.system.bidding.controller;
 
 import com.bidding.system.bidding.model.EditalDTO;
+import com.bidding.system.bidding.model.LanceDTO;
 import com.bidding.system.bidding.service.EditalService;
+import com.bidding.system.bidding.service.LanceService;
 import com.bidding.system.bidding.service.TokenService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class EditalController {
     @Autowired
     private EditalService service;
     
+    @Autowired
+    private LanceService lanceService;
+    
     @PostMapping
     public String cadastrarEdital(
             @RequestHeader("Authorization") String auth,
@@ -39,8 +44,22 @@ public class EditalController {
     }
     
     @GetMapping
-        public List<EditalDTO> listar(EditalDTO edital) {
-        List<EditalDTO> lista = service.listar();
-        return lista;
+        public List<EditalDTO> listar(
+            @RequestHeader("Authorization") String auth
+        ){
+            String token = auth.replace("Bearer", "");
+            List<EditalDTO> lista = service.listar(token);
+            return lista;
+        }
+            
+    @PostMapping("{id}lances")
+    public String registrarLance(
+            @RequestHeader("Authorization") String auth,
+            @RequestBody LanceDTO lance,
+            @FathVariable Long id
+    ) {
+        String token = auth.replace("Bearer ", "");
+        service.criarLance(id, lance, token);
+        return "Lance Registrado com sucesso!";
     }
 }
