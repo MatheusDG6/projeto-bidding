@@ -14,17 +14,17 @@ public class LanceDTO {
     private Long id;
     private double valor;
     private Date data_lance;
-    private long idFinal;
+    private long idEdital;
     private long idUsuario;
 
     public LanceDTO() {
     }
 
-    public LanceDTO(Long id, double valor, Date data_lance, long idFinal, long idUsuario) {
+    public LanceDTO(Long id, double valor, Date data_lance, long idEdital, long idUsuario) {
         this.id = id;
         this.valor = valor;
         this.data_lance = data_lance;
-        this.idFinal = idFinal;
+        this.idEdital = idEdital;
         this.idUsuario = idUsuario;
     }
 
@@ -52,12 +52,12 @@ public class LanceDTO {
         this.data_lance = data_lance;
     }
 
-    public long getIdFinal() {
-        return idFinal;
+    public long getIdEdital() {
+        return idEdital;
     }
 
-    public void setIdFinal(long idFinal) {
-        this.idFinal = idFinal;
+    public void setIdEdital(long idEdital) {
+        this.idEdital = idEdital;
     }
 
     public long getIdUsuario() {
@@ -67,7 +67,4 @@ public class LanceDTO {
     public void setIdUsuario(long idUsuario) {
         this.idUsuario = idUsuario;
     }
-    
-    
-    
 }

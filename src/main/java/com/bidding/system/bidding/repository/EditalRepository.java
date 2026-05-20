@@ -85,5 +85,6 @@ public class EditalRepository {
         } catch(SQLException e) {
             e.printStackTrace();
         }
+        return edital;
     }
 }
